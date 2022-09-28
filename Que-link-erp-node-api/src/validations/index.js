@@ -1,0 +1,10 @@
+module.exports.authValidation = require("./auth.validation");
+module.exports.userValidation = require("./user.validation");
+module.exports.customValidation = require("./custom.validation");
+module.exports.tenantValidation = require("./tenant.validation");
+module.exports.networkServerValidation = require("./networkServer.validation");
+module.exports.packageValidation = require("./package.validation");
+module.exports.franchiseValidation = require("./franchise.validation");
+module.exports.dealerValidation = require("./dealer.validation");
+module.exports.customerValidation = require("./customer.validation");
+module.exports.billingValidation = require("./billing.validation");
