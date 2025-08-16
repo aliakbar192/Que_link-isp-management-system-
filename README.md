@@ -1,71 +1,256 @@
-# Getting Started with Create React App
+# ISP Billing Management System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A complete billing management system for Internet Service Providers built with NestJS backend and React frontend.
 
-## Available Scripts
+## 🚀 Features
 
-In the project directory, you can run:
+### Authentication & Authorization
+- JWT-based authentication with access & refresh tokens
+- Role-based access control (SuperAdmin & Admin)
+- Secure password hashing with bcrypt
 
-### `npm start`
+### Customer Management
+- Create, read, update, and delete customers
+- Customer fields: name, phone, package, monthly amount, discount, address, status
+- Automatic remaining bill calculation
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Billing System
+- Automatic monthly bill generation on the 1st of every month
+- Payment and extra charge management
+- Approval workflow for SuperAdmin
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Transaction Management
+- Create payments and extra charges
+- Approval/rejection system
+- Full audit trail with timestamps
 
-### `npm test`
+### Reporting
+- Daily collection reports
+- Monthly collection reports
+- Customer billing breakdowns
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Mobile Responsive UI
+- Built with Ant Design + TailwindCSS
+- Responsive tables and forms
+- Mobile-first design approach
 
-### `npm run build`
+## 🛠️ Tech Stack
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Backend
+- **Framework**: NestJS (Node.js)
+- **Database**: MongoDB with Mongoose
+- **Authentication**: JWT + Passport
+- **Validation**: class-validator
+- **Scheduling**: @nestjs/schedule
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### Frontend
+- **Framework**: React 18 with TypeScript
+- **UI Library**: Ant Design
+- **Styling**: TailwindCSS
+- **State Management**: React Context
+- **Routing**: React Router v6
+- **HTTP Client**: Axios
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 📁 Project Structure
 
-### `npm run eject`
+```
+├── isp-billing-backend/          # NestJS Backend
+│   ├── src/
+│   │   ├── auth/                 # Authentication module
+│   │   ├── customers/            # Customer management
+│   │   ├── transactions/         # Transaction management
+│   │   ├── billing/              # Billing automation
+│   │   ├── seeder/               # Database seeding
+│   │   └── schemas/              # MongoDB schemas
+│   └── .env                      # Environment variables
+│
+└── isp-billing-frontend/         # React Frontend
+    ├── src/
+    │   ├── components/           # React components
+    │   ├── services/             # API services
+    │   ├── contexts/             # React contexts
+    │   └── types/                # TypeScript types
+    └── tailwind.config.js        # TailwindCSS config
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 🚀 Getting Started
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+### Prerequisites
+- Node.js 16+ 
+- MongoDB 4.4+
+- npm or yarn
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+### Backend Setup
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+1. **Navigate to backend directory**
+   ```bash
+   cd isp-billing-backend
+   ```
 
-## Learn More
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+3. **Environment Configuration**
+   ```bash
+   cp .env.example .env
+   # Update MongoDB URI and JWT secrets
+   ```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+4. **Start MongoDB**
+   ```bash
+   # Make sure MongoDB is running on localhost:27017
+   ```
 
-### Code Splitting
+5. **Seed the database**
+   ```bash
+   # Create initial SuperAdmin user
+   curl -X POST http://localhost:3001/seeder
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+6. **Start the backend**
+   ```bash
+   npm run start:dev
+   ```
 
-### Analyzing the Bundle Size
+### Frontend Setup
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+1. **Navigate to frontend directory**
+   ```bash
+   cd isp-billing-frontend
+   ```
 
-### Making a Progressive Web App
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+3. **Start the frontend**
+   ```bash
+   npm start
+   ```
 
-### Advanced Configuration
+## 🔐 Default Credentials
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+- **Username**: `admin`
+- **Password**: `admin123`
+- **Role**: `SuperAdmin`
 
-### Deployment
+## 📱 API Endpoints
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### Authentication
+- `POST /auth/login` - User login
+- `POST /auth/refresh` - Refresh access token
+- `GET /auth/profile` - Get user profile
 
-### `npm run build` fails to minify
+### Customers
+- `GET /customers` - List all customers
+- `POST /customers` - Create new customer
+- `GET /customers/:id` - Get customer details
+- `PATCH /customers/:id` - Update customer
+- `DELETE /customers/:id` - Delete customer
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# Que_link
+### Transactions
+- `GET /transactions` - List all transactions
+- `POST /transactions` - Create new transaction
+- `GET /transactions/pending` - Get pending transactions
+- `POST /transactions/approve` - Approve/reject transaction
+
+### Reports
+- `GET /transactions/reports/daily` - Daily collection report
+- `GET /transactions/reports/monthly` - Monthly collection report
+
+### Billing
+- `POST /billing/generate-monthly-bills` - Manual bill generation
+
+## 🔒 Security Features
+
+- JWT token-based authentication
+- Role-based access control
+- Password hashing with bcrypt
+- Request validation with class-validator
+- CORS protection
+- Rate limiting (configurable)
+
+## 📊 Database Models
+
+### SystemUser
+```typescript
+{
+  username: string;
+  password: string;
+  role: 'SuperAdmin' | 'Admin';
+  isActive: boolean;
+  createdAt: Date;
+}
+```
+
+### Customer
+```typescript
+{
+  name: string;
+  phoneNumber: string;
+  package: string;
+  monthlyAmount: number;
+  discount: number;
+  address: string;
+  status: 'active' | 'inactive';
+  remainingBill: number;
+  lastBillingDate: Date;
+  createdAt: Date;
+}
+```
+
+### Transaction
+```typescript
+{
+  customerId: ObjectId;
+  type: 'payment' | 'extraCharge';
+  amount: number;
+  status: 'pending' | 'approved' | 'rejected';
+  createdBy: ObjectId;
+  approvedBy?: ObjectId;
+  approvedAt?: Date;
+  description?: string;
+  createdAt: Date;
+}
+```
+
+## 🎨 UI Components
+
+- **Responsive Tables**: Collapse to cards on mobile
+- **Form Components**: Stack vertically on small screens
+- **Dashboard Cards**: Responsive grid layout
+- **Navigation**: Collapsible sidebar
+- **Mobile Menu**: Touch-friendly interface
+
+## 🚀 Deployment
+
+### Backend
+```bash
+npm run build
+npm run start:prod
+```
+
+### Frontend
+```bash
+npm run build
+# Serve the build folder with nginx or similar
+```
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Commit your changes
+4. Push to the branch
+5. Create a Pull Request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 🆘 Support
+
+For support and questions, please open an issue in the repository.
